@@ -9,7 +9,7 @@ namespace DiyetProgrami.DAL.Entities
 {
     public class MealLog : BaseEntity
     {
-        public Guid DietPlanId { get; set; }
+        public Guid? DietPlanId { get; set; }
         public DateTime Date { get; set; }
         public string MealType { get; set; } // Örneğin, kahvaltı, öğle yemeği, akşam yemeği
         public string Description { get; set; }
@@ -19,6 +19,6 @@ namespace DiyetProgrami.DAL.Entities
         public float Fat { get; set; }
 
         // Navigation Property
-        public DietPlan DietPlan { get; set; }
+        public DietPlan? DietPlan { get; set; }
     }
 }

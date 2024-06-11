@@ -16,5 +16,7 @@ namespace DiyetProgrami.DAL.Entities
         public User User { get; set; }
         public List<Dieter> Dieters { get; set; }
         public List<DietPlan> DietPlans { get; set; }
+
+        
     }
 }

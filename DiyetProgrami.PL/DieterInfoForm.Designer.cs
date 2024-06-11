@@ -38,6 +38,8 @@
             radioBtnFemale = new RadioButton();
             btnOK = new Button();
             btnCancel = new Button();
+            label4 = new Label();
+            cmbDietitian = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -55,7 +57,7 @@
             txtAge.BackColor = Color.FromArgb(230, 231, 233);
             txtAge.BorderStyle = BorderStyle.None;
             txtAge.Font = new Font("Nirmala UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtAge.Location = new Point(18, 44);
+            txtAge.Location = new Point(18, 47);
             txtAge.Name = "txtAge";
             txtAge.Size = new Size(130, 32);
             txtAge.TabIndex = 1;
@@ -65,7 +67,7 @@
             txtHeight.BackColor = Color.FromArgb(230, 231, 233);
             txtHeight.BorderStyle = BorderStyle.None;
             txtHeight.Font = new Font("Nirmala UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtHeight.Location = new Point(18, 102);
+            txtHeight.Location = new Point(18, 105);
             txtHeight.Name = "txtHeight";
             txtHeight.Size = new Size(130, 32);
             txtHeight.TabIndex = 3;
@@ -85,7 +87,7 @@
             txtWeight.BackColor = Color.FromArgb(230, 231, 233);
             txtWeight.BorderStyle = BorderStyle.None;
             txtWeight.Font = new Font("Nirmala UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtWeight.Location = new Point(18, 160);
+            txtWeight.Location = new Point(18, 166);
             txtWeight.Name = "txtWeight";
             txtWeight.Size = new Size(130, 32);
             txtWeight.TabIndex = 5;
@@ -104,7 +106,7 @@
             // 
             radioBtnMale.AutoSize = true;
             radioBtnMale.ForeColor = Color.FromArgb(116, 86, 174);
-            radioBtnMale.Location = new Point(205, 72);
+            radioBtnMale.Location = new Point(200, 83);
             radioBtnMale.Name = "radioBtnMale";
             radioBtnMale.Size = new Size(70, 27);
             radioBtnMale.TabIndex = 6;
@@ -116,7 +118,7 @@
             // 
             radioBtnFemale.AutoSize = true;
             radioBtnFemale.ForeColor = Color.FromArgb(116, 86, 174);
-            radioBtnFemale.Location = new Point(205, 99);
+            radioBtnFemale.Location = new Point(200, 110);
             radioBtnFemale.Name = "radioBtnFemale";
             radioBtnFemale.Size = new Size(88, 27);
             radioBtnFemale.TabIndex = 7;
@@ -132,7 +134,7 @@
             btnOK.ForeColor = Color.White;
             btnOK.Location = new Point(293, 155);
             btnOK.Name = "btnOK";
-            btnOK.Size = new Size(75, 23);
+            btnOK.Size = new Size(80, 37);
             btnOK.TabIndex = 8;
             btnOK.Text = "OK";
             btnOK.UseVisualStyleBackColor = false;
@@ -146,18 +148,39 @@
             btnCancel.ForeColor = Color.White;
             btnCancel.Location = new Point(200, 155);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(75, 23);
+            btnCancel.Size = new Size(75, 37);
             btnCancel.TabIndex = 9;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = Color.FromArgb(116, 86, 174);
+            label4.Location = new Point(200, 24);
+            label4.Name = "label4";
+            label4.Size = new Size(80, 23);
+            label4.TabIndex = 10;
+            label4.Text = "Dietitian";
+            // 
+            // cmbDietitian
+            // 
+            cmbDietitian.BackColor = SystemColors.MenuBar;
+            cmbDietitian.FormattingEnabled = true;
+            cmbDietitian.Location = new Point(200, 50);
+            cmbDietitian.Name = "cmbDietitian";
+            cmbDietitian.Size = new Size(151, 29);
+            cmbDietitian.TabIndex = 11;
             // 
             // DieterInfoForm
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(385, 222);
+            ClientSize = new Size(383, 226);
+            Controls.Add(cmbDietitian);
+            Controls.Add(label4);
             Controls.Add(btnCancel);
             Controls.Add(btnOK);
             Controls.Add(radioBtnFemale);
@@ -190,5 +213,7 @@
         private RadioButton radioBtnFemale;
         private Button btnOK;
         private Button btnCancel;
+        private Label label4;
+        private ComboBox cmbDietitian;
     }
 }

@@ -75,7 +75,7 @@ namespace DiyetProgrami.BL.Manager.Concrete
                 else if (additionalInfo is DietitianViewModel dietitianViewModel)
                 {
                     var dietitian = _mapper.Map<Dietitian>(dietitianViewModel);
-                    dietitian.User.Id = user.Id;
+                    dietitian.Id = user.Id;
                     _dbContext.Dietitians.Add(dietitian);
                     await _dbContext.SaveChangesAsync();
                 }

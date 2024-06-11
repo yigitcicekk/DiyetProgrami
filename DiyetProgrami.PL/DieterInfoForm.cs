@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DiyetProgrami.BL.Models;
+using DiyetProgrami.DAL.Context;
+using DiyetProgrami.DAL.Repository.Concrete;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,9 +20,21 @@ namespace DiyetProgrami.PL
         public float Height { get; private set; }
         public float Weight { get; private set; }
 
-        public DieterInfoForm()
+        private readonly DiyetProgramiDbContext _db;
+        private readonly DietitianRepository _dietitianRepository;
+
+        public DieterInfoForm(DiyetProgramiDbContext db,DietitianRepository dietitianRepository)
         {
             InitializeComponent();
+            _db = db;
+            _dietitianRepository = dietitianRepository;
+
+            var dietitian = _dietitianRepository.GetAll();
+            foreach (var item in dietitian)
+            {
+                cmbDietitian.Items.Add(item).ToString();
+            }
+
         }
 
         private void btnOK_Click(object sender, EventArgs e)

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DiyetProgrami.DAL.Migrations
 {
     [DbContext(typeof(DiyetProgramiDbContext))]
-    [Migration("20240611191015_m1")]
+    [Migration("20240611195045_m1")]
     partial class m1
     {
         /// <inheritdoc />
@@ -40,10 +40,10 @@ namespace DiyetProgrami.DAL.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("DieterId")
+                    b.Property<Guid?>("DieterId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("DietitianId")
+                    b.Property<Guid?>("DietitianId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("EndDate")
@@ -162,7 +162,7 @@ namespace DiyetProgrami.DAL.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("DietPlanId")
+                    b.Property<Guid?>("DietPlanId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<float>("Duration")
@@ -208,7 +208,7 @@ namespace DiyetProgrami.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("DietPlanId")
+                    b.Property<Guid?>("DietPlanId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<float>("Fat")
@@ -227,7 +227,8 @@ namespace DiyetProgrami.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DietPlanId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[DietPlanId] IS NOT NULL");
 
                     b.ToTable("MealLogs");
                 });
@@ -304,15 +305,11 @@ namespace DiyetProgrami.DAL.Migrations
                 {
                     b.HasOne("DiyetProgrami.DAL.Entities.Dieter", "Dieter")
                         .WithMany("DietPlans")
-                        .HasForeignKey("DieterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DieterId");
 
                     b.HasOne("DiyetProgrami.DAL.Entities.Dietitian", "Dietitian")
                         .WithMany("DietPlans")
-                        .HasForeignKey("DietitianId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DietitianId");
 
                     b.HasOne("DiyetProgrami.DAL.Entities.ExerciseLog", "ExerciseLog")
                         .WithMany("DietPlan")
@@ -342,9 +339,7 @@ namespace DiyetProgrami.DAL.Migrations
                 {
                     b.HasOne("DiyetProgrami.DAL.Entities.DietPlan", "DietPlan")
                         .WithOne("MealLog")
-                        .HasForeignKey("DiyetProgrami.DAL.Entities.MealLog", "DietPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DiyetProgrami.DAL.Entities.MealLog", "DietPlanId");
 
                     b.Navigation("DietPlan");
                 });

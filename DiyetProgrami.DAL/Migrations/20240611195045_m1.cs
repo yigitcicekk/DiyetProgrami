@@ -32,7 +32,7 @@ namespace DiyetProgrami.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DietPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DietPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExerciseType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Duration = table.Column<float>(type: "real", nullable: false),
@@ -78,8 +78,8 @@ namespace DiyetProgrami.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DieterId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DietitianId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DieterId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DietitianId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     PlanName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -96,14 +96,12 @@ namespace DiyetProgrami.DAL.Migrations
                         name: "FK_DietPlans_Dieters_DieterId",
                         column: x => x.DieterId,
                         principalTable: "Dieters",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_DietPlans_Dietitians_DietitianId",
                         column: x => x.DietitianId,
                         principalTable: "Dietitians",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_DietPlans_ExerciseLogs_ExerciseLogId",
                         column: x => x.ExerciseLogId,
@@ -152,7 +150,7 @@ namespace DiyetProgrami.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DietPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DietPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     MealType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -172,8 +170,7 @@ namespace DiyetProgrami.DAL.Migrations
                         name: "FK_MealLogs_DietPlans_DietPlanId",
                         column: x => x.DietPlanId,
                         principalTable: "DietPlans",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -200,7 +197,8 @@ namespace DiyetProgrami.DAL.Migrations
                 name: "IX_MealLogs_DietPlanId",
                 table: "MealLogs",
                 column: "DietPlanId",
-                unique: true);
+                unique: true,
+                filter: "[DietPlanId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_DieterId",

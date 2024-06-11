@@ -1,4 +1,5 @@
 ﻿using DiyetProgrami.DAL.Entities;
+using DiyetProgrami.DAL.Repository.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;

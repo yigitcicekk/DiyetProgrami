@@ -17,5 +17,6 @@ namespace DiyetProgrami.BL.Models
         public UserViewModel User { get; set; }
         public List<DieterViewModel> Dieters { get; set; }
         public List<DietPlanViewModel> DietPlans { get; set; }
+        
     }
 }

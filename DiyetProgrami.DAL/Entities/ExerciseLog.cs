@@ -9,13 +9,13 @@ namespace DiyetProgrami.DAL.Entities
 {
     public class ExerciseLog : BaseEntity
     {
-        public Guid DietPlanId { get; set; }
+        public Guid? DietPlanId { get; set; }
         public DateTime Date { get; set; }
         public string ExerciseType { get; set; }
         public float Duration { get; set; } // Süre (dakika olarak)
         public float CaloriesBurned { get; set; }
 
         // Navigation Property
-        public List<DietPlan> DietPlan { get; set; }
+        public List<DietPlan>? DietPlan { get; set; }
     }
 }
