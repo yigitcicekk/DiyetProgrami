@@ -12,6 +12,22 @@ namespace DiyetProgrami.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Dietitians",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Specialization = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DataStatus = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dietitians", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ExerciseLogs",
                 columns: table => new
                 {
@@ -32,80 +48,11 @@ namespace DiyetProgrami.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    VerificationCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsVerified = table.Column<bool>(type: "bit", nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DataStatus = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Admins",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DataStatus = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admins", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Admins_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Dietitians",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Specialization = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DataStatus = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dietitians", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Dietitians_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Dieters",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DietitianId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DietitianId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Height = table.Column<float>(type: "real", nullable: false),
@@ -122,12 +69,8 @@ namespace DiyetProgrami.DAL.Migrations
                         name: "FK_Dieters_Dietitians_DietitianId",
                         column: x => x.DietitianId,
                         principalTable: "Dietitians",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Dieters_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -170,6 +113,41 @@ namespace DiyetProgrami.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    VerificationCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsVerified = table.Column<bool>(type: "bit", nullable: false),
+                    DietitianId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DieterId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DataStatus = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Dieters_DieterId",
+                        column: x => x.DieterId,
+                        principalTable: "Dieters",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Users_Dietitians_DietitianId",
+                        column: x => x.DietitianId,
+                        principalTable: "Dietitians",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MealLogs",
                 columns: table => new
                 {
@@ -199,24 +177,9 @@ namespace DiyetProgrami.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Admins_UserId",
-                table: "Admins",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Dieters_DietitianId",
                 table: "Dieters",
                 column: "DietitianId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Dieters_UserId",
-                table: "Dieters",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Dietitians_UserId",
-                table: "Dietitians",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DietPlans_DieterId",
@@ -238,16 +201,30 @@ namespace DiyetProgrami.DAL.Migrations
                 table: "MealLogs",
                 column: "DietPlanId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_DieterId",
+                table: "Users",
+                column: "DieterId",
+                unique: true,
+                filter: "[DieterId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_DietitianId",
+                table: "Users",
+                column: "DietitianId",
+                unique: true,
+                filter: "[DietitianId] IS NOT NULL");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Admins");
+                name: "MealLogs");
 
             migrationBuilder.DropTable(
-                name: "MealLogs");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "DietPlans");
@@ -260,9 +237,6 @@ namespace DiyetProgrami.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Dietitians");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

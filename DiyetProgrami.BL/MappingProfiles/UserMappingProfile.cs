@@ -14,8 +14,7 @@ namespace DiyetProgrami.BL.MappingProfiles
         public UserMappingProfile()
         {
             CreateMap<UserViewModel, User>()
-            .ForMember(dest => dest.Dietitians, opt => opt.MapFrom(src => src.Dietitians))
-            .ForMember(dest => dest.Admins, opt => opt.MapFrom(src => src.Admins))
+            .ForMember(dest => dest.Dietitian, opt => opt.MapFrom(src => src.Dietitian))
             .ForMember(dest => dest.VerificationCode, opt => opt.MapFrom(src => src.VerificationCode))
             .ForMember(dest => dest.IsVerified, opt => opt.MapFrom(src => src.IsVerified))
             .ReverseMap();

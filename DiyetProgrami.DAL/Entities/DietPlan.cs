@@ -9,8 +9,8 @@ namespace DiyetProgrami.DAL.Entities
 {
     public class DietPlan : BaseEntity
     {
-        public Guid DieterId { get; set; }
-        public Guid DietitianId { get; set; }
+        public Guid? DieterId { get; set; }
+        public Guid? DietitianId { get; set; }
         public string PlanName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

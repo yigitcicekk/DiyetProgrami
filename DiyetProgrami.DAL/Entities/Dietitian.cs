@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace DiyetProgrami.DAL.Entities
 {
     public class Dietitian : BaseEntity
-    {
-        public Guid UserId { get; set; }
+    {      
         public string Specialization { get; set; }
 
         // Navigation Property

@@ -75,7 +75,7 @@ namespace DiyetProgrami.BL.Manager.Concrete
                 else if (additionalInfo is DietitianViewModel dietitianViewModel)
                 {
                     var dietitian = _mapper.Map<Dietitian>(dietitianViewModel);
-                    dietitian.UserId = user.Id;
+                    dietitian.User.Id = user.Id;
                     _dbContext.Dietitians.Add(dietitian);
                     await _dbContext.SaveChangesAsync();
                 }
@@ -113,20 +113,6 @@ namespace DiyetProgrami.BL.Manager.Concrete
             return _mapper.Map<UserViewModel>(user);
         }
 
-        public string GetUserRole(UserViewModel? userViewModel)
-        {
-            var user = _repository.GetById(userViewModel.Id);
-            
-            if (user.Admins.Any())
-            {
-                return "admin";
-            }
-            if (user.Dietitians.Any())
-            {
-                return "dietitian";
-            }
-            return null;
-        }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {

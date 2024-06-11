@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DiyetProgrami.DAL.Migrations
 {
     [DbContext(typeof(DiyetProgramiDbContext))]
-    [Migration("20240610184123_m2")]
-    partial class m2
+    [Migration("20240611191015_m1")]
+    partial class m1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,34 +24,6 @@ namespace DiyetProgrami.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("DiyetProgrami.DAL.Entities.Admin", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DataStatus")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("DiyetProgrami.DAL.Entities.DietPlan", b =>
                 {
@@ -132,17 +104,12 @@ namespace DiyetProgrami.DAL.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<float>("Weight")
                         .HasColumnType("real");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DietitianId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Dieters");
                 });
@@ -169,12 +136,7 @@ namespace DiyetProgrami.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Dietitians");
                 });
@@ -285,6 +247,12 @@ namespace DiyetProgrami.DAL.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DieterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DietitianId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -321,18 +289,15 @@ namespace DiyetProgrami.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DieterId")
+                        .IsUnique()
+                        .HasFilter("[DieterId] IS NOT NULL");
+
+                    b.HasIndex("DietitianId")
+                        .IsUnique()
+                        .HasFilter("[DietitianId] IS NOT NULL");
+
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("DiyetProgrami.DAL.Entities.Admin", b =>
-                {
-                    b.HasOne("DiyetProgrami.DAL.Entities.User", "User")
-                        .WithMany("Admins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DiyetProgrami.DAL.Entities.DietPlan", b =>
@@ -370,22 +335,7 @@ namespace DiyetProgrami.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DiyetProgrami.DAL.Entities.User", null)
-                        .WithMany("Dieters")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Dietitian");
-                });
-
-            modelBuilder.Entity("DiyetProgrami.DAL.Entities.Dietitian", b =>
-                {
-                    b.HasOne("DiyetProgrami.DAL.Entities.User", "User")
-                        .WithMany("Dietitians")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DiyetProgrami.DAL.Entities.MealLog", b =>
@@ -399,6 +349,21 @@ namespace DiyetProgrami.DAL.Migrations
                     b.Navigation("DietPlan");
                 });
 
+            modelBuilder.Entity("DiyetProgrami.DAL.Entities.User", b =>
+                {
+                    b.HasOne("DiyetProgrami.DAL.Entities.Dieter", "Dieter")
+                        .WithOne("User")
+                        .HasForeignKey("DiyetProgrami.DAL.Entities.User", "DieterId");
+
+                    b.HasOne("DiyetProgrami.DAL.Entities.Dietitian", "Dietitian")
+                        .WithOne("User")
+                        .HasForeignKey("DiyetProgrami.DAL.Entities.User", "DietitianId");
+
+                    b.Navigation("Dieter");
+
+                    b.Navigation("Dietitian");
+                });
+
             modelBuilder.Entity("DiyetProgrami.DAL.Entities.DietPlan", b =>
                 {
                     b.Navigation("MealLog")
@@ -408,6 +373,9 @@ namespace DiyetProgrami.DAL.Migrations
             modelBuilder.Entity("DiyetProgrami.DAL.Entities.Dieter", b =>
                 {
                     b.Navigation("DietPlans");
+
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DiyetProgrami.DAL.Entities.Dietitian", b =>
@@ -415,20 +383,14 @@ namespace DiyetProgrami.DAL.Migrations
                     b.Navigation("DietPlans");
 
                     b.Navigation("Dieters");
+
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DiyetProgrami.DAL.Entities.ExerciseLog", b =>
                 {
                     b.Navigation("DietPlan");
-                });
-
-            modelBuilder.Entity("DiyetProgrami.DAL.Entities.User", b =>
-                {
-                    b.Navigation("Admins");
-
-                    b.Navigation("Dieters");
-
-                    b.Navigation("Dietitians");
                 });
 #pragma warning restore 612, 618
         }

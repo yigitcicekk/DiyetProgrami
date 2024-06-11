@@ -17,6 +17,7 @@ namespace DiyetProgrami.DAL.Entities
 
         // Navigation Property
 
+        public User User { get; set; }
         public Dietitian Dietitian { get; set; }
         public List<DietPlan> DietPlans { get; set; }
     }

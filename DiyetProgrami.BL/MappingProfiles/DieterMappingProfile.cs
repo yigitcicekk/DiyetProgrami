@@ -16,6 +16,8 @@ namespace DiyetProgrami.BL.MappingProfiles
             CreateMap<DietitianViewModel, Dietitian>().ForMember(a => a.Dieters, b => b.MapFrom(b => b.Dieters)).ReverseMap();
 
             CreateMap<DietPlanViewModel, DietPlan>().ForMember(a => a.Dieter, b => b.MapFrom(b => b.Dieter)).ReverseMap();
+            
+            CreateMap<UserViewModel, User>().ForMember(a => a.Dieter, b => b.MapFrom(b => b.Dieter)).ReverseMap();
         }
     }
 }

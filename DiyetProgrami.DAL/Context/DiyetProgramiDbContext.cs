@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 namespace DiyetProgrami.DAL.Context
 {
     public class DiyetProgramiDbContext : DbContext
-    {
-        public DbSet<Admin> Admins { get; set; }
+    {      
         public DbSet<Dieter> Dieters { get; set; }
         public DbSet<Dietitian> Dietitians { get; set; }
         public DbSet<DietPlan> DietPlans { get; set; }

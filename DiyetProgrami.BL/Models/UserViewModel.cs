@@ -10,6 +10,8 @@ namespace DiyetProgrami.BL.Models
     public class UserViewModel
     {
         public Guid Id { get; set; }
+        public Guid? DieterId { get; set; }
+        public Guid? DietitianId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -19,10 +21,9 @@ namespace DiyetProgrami.BL.Models
         public bool IsVerified { get; set; }
 
         // Navigation Properties
-        public List<DieterViewModel> Dieters { get; set; }
-        public List<DietitianViewModel> Dietitians { get; set; }
-        public List<AdminViewModel> Admins { get; set; }
+        public DieterViewModel Dieter { get; set; }
+        public DietitianViewModel Dietitian { get; set; }
 
-        public byte[] Image { get; set; }
+        public byte[]? Image { get; set; }
     }
 }

@@ -63,36 +63,39 @@ namespace DiyetProgrami.PL
             {
                 var user = _userManager.Login(email, password);
 
-                if (user != null)
-                {
-                    var userRole = _userManager.GetUserRole(user);
+                YoneticiFormu yoneticiForm = new YoneticiFormu();
+                yoneticiForm.ShowDialog();
+               
+                //if (user != null)
+                //{
+                //    var userRole = _userManager.GetUserRole(user);
 
-                    if (userRole == "admin")
-                    {
-                        AdminHomePage adminHomePage = new AdminHomePage();
-                        adminHomePage.Show();
-                    }
-                    else if (userRole == "dieter")
-                    {
-                        DieterHomePage dieterHomePage = new DieterHomePage();
-                        dieterHomePage.Show();
-                    }
-                    else if (userRole == "dietitian")
-                    {
-                        DietitianHomePage dietitianHomePage = new DietitianHomePage();
-                        dietitianHomePage.Show();
-                    }
-                    else
-                    {
-                        MessageBox.Show("User role not recognized.");
-                    }
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Invalid email or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    ClearFormField();
-                }
+                //    if (userRole == "admin")
+                //    {
+                //        AdminHomePage adminHomePage = new AdminHomePage();
+                //        adminHomePage.Show();
+                //    }
+                //    else if (userRole == "dieter")
+                //    {
+                //        DieterHomePage dieterHomePage = new DieterHomePage();
+                //        dieterHomePage.Show();
+                //    }
+                //    else if (userRole == "dietitian")
+                //    {
+                //        DietitianHomePage dietitianHomePage = new DietitianHomePage();
+                //        dietitianHomePage.Show();
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show("User role not recognized.");
+                //    }
+                //    this.Hide();
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Invalid email or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    ClearFormField();
+                //}
             }
             catch (Exception ex)
             {

@@ -9,9 +9,8 @@ namespace DiyetProgrami.BL.Models
 {
     public class DieterViewModel
     {
-        public Guid Id { get; set; }
-        public Guid? UserId { get; set; }
-        public Guid? DietitianId { get; set; }
+        public Guid Id { get; set; }  
+        public Guid DietitianId { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
         public float Height { get; set; }

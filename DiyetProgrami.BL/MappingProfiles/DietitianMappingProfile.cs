@@ -13,7 +13,7 @@ namespace DiyetProgrami.BL.MappingProfiles
     {
         public DietitianMappingProfile()
         {
-            CreateMap<UserViewModel, User>().ForMember(a => a.Dietitians, b => b.MapFrom(b => b.Dietitians)).ReverseMap();
+            CreateMap<UserViewModel, User>().ForMember(a => a.Dietitian, b => b.MapFrom(b => b.Dietitian)).ReverseMap();
 
             CreateMap<DieterViewModel, Dieter>().ForMember(a => a.Dietitian, b => b.MapFrom(b => b.Dietitian)).ReverseMap();
 

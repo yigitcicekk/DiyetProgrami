@@ -20,7 +20,7 @@ namespace DiyetProgrami.DAL.Repository.Concrete
 
         public User GetByEmail(string email)
         {
-            return _db.Users.AsNoTracking().SingleOrDefault(u => u.Email == email);
+            return _db.Users.AsNoTracking().FirstOrDefault(u => u.Email == email);
         }
     }
 }
